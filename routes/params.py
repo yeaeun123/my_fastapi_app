@@ -40,8 +40,5 @@ async def read_items_multi(item: Optional[List[str]] = Query(None)):
 # ... : Ellipse -> 필수 파라미터 
 @router.get("/search/")
 async def search_item(keyword:str = Query(..., min_length=3)):
-<<<<<<< HEAD
     return {"keyword": keyword }
-=======
-    return {"keyword": keyword }
->>>>>>> 1f8a44538811f1fd31fbc2cbf171e867a575a6b9
+
