@@ -41,8 +41,19 @@ async def modify_todo(todo_id: int = Path(
     description="수정할 Todo 아이템의 ID",
     ge = 1, # 1이상
     le = 100 # 100이하
-)):
-    pass
+), updated_todo: todo_schema.Todo = None):
+    # 목록에서 수정할 Todo Item을 찾기
+    for existing_todo in todos:
+        if existing_todo.id == todo_id: # 찾았음/ 만약 id를 찾았으면
+            # 아이템 변경
+            existing_todo.title = updated_todo.title
+            existing_todo.done = updated_todo.done
+            return existing_todo
+        
+    # 못찾음 -> 404 오류 발생
+    raise HTTPException(status_code=404,
+                        detail="수정할 Todo Item을 찾지 못했습니다.")
+    
 
 # TODO 삭제
 # 목록에서 todo_id를 가진 Todo항목이 있으면 삭제
